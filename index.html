@@ -205,7 +205,8 @@ nav {
   transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
   transform-style: preserve-3d;
 }
-.flip-card:hover .flip-card-inner {
+.flip-card:hover .flip-card-inner,
+.flip-card.flipped .flip-card-inner {
   transform: rotateY(180deg);
 }
 .flip-card-front,
@@ -2117,6 +2118,7 @@ ikhMWiiimI//2Q==" alt="Dana Alsina Lee">
             </div>
             <!-- DORSO: info personal -->
             <div class="flip-card-back">
+              <div class="flip-icon">👩‍💼</div>
               <div class="flip-name">Dana Alsina Lee</div>
               <div class="flip-age">33 años</div>
               <div class="flip-location">📍 Buenos Aires, Argentina</div>
@@ -2467,7 +2469,7 @@ ikhMWiiimI//2Q==" alt="Dana Alsina Lee">
             </div>
             <div class="pf-item">
               <div class="pf-header"><span class="pf-name">Retención de Cuentas</span><span class="pf-pct" id="prog-ret">84%</span></div>
-              <div class="pf-track"><div class="pf-fill" id="prog-ret-bar" style="width:84%;background:#1B2A4A"></div></div>
+              <div class="pf-track"><div class="pf-fill" id="prog-ret-bar" style="width:84%;background:#8B9AB0"></div></div>
             </div>
             <div class="pf-item">
               <div class="pf-header"><span class="pf-name">Productividad</span><span class="pf-pct" id="prog-new">68%</span></div>
@@ -2760,7 +2762,7 @@ function updateProgress(period) {
   const p = dashData[period].progress;
   const items = [
     { pct: 'prog-ventas', bar: 'prog-ventas-bar', val: p.ventas },
-    { pct: 'prog-ret',    bar: 'prog-ret-bar',    val: p.ret },
+    { pct: 'prog-ret',    bar: 'prog-ret-bar',    val: p.ret, color: '#8B9AB0' },
     { pct: 'prog-new',    bar: 'prog-new-bar',    val: p.new, color: '#2563EB' },
     { pct: 'prog-sat',    bar: 'prog-sat-bar',    val: p.sat },
   ];
@@ -2852,6 +2854,18 @@ document.addEventListener('DOMContentLoaded', () => {
       bar.style.height = (v / max * 52) + 'px';
       wrap.appendChild(bar);
       miniChart.appendChild(wrap);
+    });
+  }
+
+  // Flip card — click/touch para mobile
+  const flipCard = document.querySelector('.flip-card');
+  if (flipCard) {
+    flipCard.addEventListener('click', () => {
+      flipCard.classList.toggle('flipped');
+    });
+    // Auto-voltear de vuelta al salir del area en desktop
+    flipCard.addEventListener('mouseleave', () => {
+      flipCard.classList.remove('flipped');
     });
   }
 
